@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from 'dotenv'
+import connectDB from "./configuration/database.js";
 const app = express();
 
 dotenv.config();
@@ -11,5 +12,6 @@ app.get("/",(req,res)=>{
 })
 
 app.listen(port,()=> {
+    connectDB();
     console.log(`connected to server http://localhost:${port}/`);
 })
