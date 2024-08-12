@@ -7,7 +7,7 @@ const tagModel = new mongoose.Schema({
         unique: true,
         required: true
     },
-    problemSet: [{
+    problems: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Problem'
     }]
