@@ -70,7 +70,7 @@ export const login = async (req,res) => {
 
     try{
         user = await User.findOne({email});
-        console.log("existing user : ",user);
+        // console.log("existing user : ",user);
 
     }catch(error){
         return res.status(500).json({messege : "can not login right now , please try again later",success:false});
@@ -99,7 +99,7 @@ export const login = async (req,res) => {
 
     const token = jwt.sign(tokenData,process.env.JWT_SECRET_KEY,{expiresIn : "1d"});
 
-    // console.log(token);
+    console.log(token);
 
     res.cookie("token",token,{maxAge:1*24*60*60*1000,httpOnly:true,sameSite:"strict"})
         .status(200)
