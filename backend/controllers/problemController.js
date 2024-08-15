@@ -1,5 +1,6 @@
 import Problem from "../models/problemModel.js"
 import { addProblemToTag } from "./tagController.js";
+import { CreateTestCase } from "./testCaseController.js";
 
 export const addProblem = async (req,res) => {
     // console.log(req.id);
@@ -90,4 +91,37 @@ export const addTagToProblem =async (req,res) => {
 
     res.status(400).json({message:"can not add tag",success:false});
 
+}
+
+export const addTestCase =async (req,res) => {
+    const {input,expectedOutput,problem} = req.body;
+
+    if(!input || !expectedOutput || !problem)
+    {
+        return res.status(401).json({
+            messege : "Please provide valid information",
+            success : false
+        })
+    }
+    
+    const testCase = await CreateTestCase(input,expectedOutput,problem);
+    console.log(testCase);
+    try {
+        // const existingProblem = await Problem.findOne({_id:problem});
+        await Problem.updateOne(
+            {_id:problem},
+            {$addToSet : {testCases : testCase._id }}
+        )
+
+        return res.status(200).json({
+            messege:"test case added succesfully!!",
+            success : true
+        })
+    } catch (error) {
+        //error handling code
+    }
+    res.status(400).json({
+        messege:"something went wrong!!",
+        success : false
+    })
 }

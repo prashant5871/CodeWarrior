@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 
-const testCaseModel = new mongoose.Schema({
+export const testCaseModel = new mongoose.Schema({
     input: {
         type: String,
         required: true
