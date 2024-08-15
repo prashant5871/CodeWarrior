@@ -125,3 +125,22 @@ export const addTestCase =async (req,res) => {
         success : false
     })
 }
+
+/**
+ * Get all the problems 
+*/
+export const getProblems = async (req,res) => {
+    let problems;
+    try {
+        problems = await Problem.find();
+        // console.log(problems);
+    } catch (error) {
+        // console.log(error);
+        return res.status(400).json({
+            messege : "Something went wrong!! Please try again later",
+            success : false
+        })
+    }
+
+    res.status(200).json({problems});
+}
