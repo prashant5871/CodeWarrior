@@ -10,7 +10,59 @@ const __dirname = path.dirname(__filename);
 
 const exeDir = path.resolve(__dirname, '../executes');
 
-export const getResultOfCpp = async (req, res) => {
+
+export const runCpp = async (req, res) => {
+    const {code, problem} = req.body;
+
+    const uniqueFileName = `${uuidv4()}.cpp`;
+    const filePath = path.join(exeDir, uniqueFileName);
+
+    if(!fs.existsSync(exeDir)){
+        fs.mkdirSync(exeDir,{recursive : true});
+    }
+
+    fs.writeFileSync(filePath,code);
+
+    try{
+        const testCases = await TestCase.find({problem});
+        const execCompile = `g++ ${filePath} -o ${filePath.replace('.cpp','')}`;
+        exec(execCompile,(compileError) =>{
+            if(compileError){
+                cleanupFiles(filePath,filePath.replace('.cpp',''));
+                return res.status(404).json({message : "Compilation error" , error : compileError});
+            }
+
+            const testCase = testCases[0];
+                const inputFilePath = path.join(exeDir, `${uuidv4()}.txt`);
+
+                fs.writeFileSync(inputFilePath, testCase.input);
+
+                const execRun = `${filePath.replace('.cpp', '')} < ${inputFilePath}`;
+                // console.log(execRun);
+                exec(execRun, (runError, stdout) => {
+                    if (runError) {
+                        return res.status(404).json({message : "Compilation error", error : compileError});
+                    } else if (stdout.trim() !== testCase.expectedOutput.trim()) {
+                        console.log(`Expected: ${testCase.expectedOutput}, Got: ${stdout.trim()}`);
+                    }
+
+                    if (fs.existsSync(inputFilePath)) {
+                        fs.unlinkSync(inputFilePath);
+                    }
+                }
+                )
+
+                return res.status(200).json({message : "Correct Answer"})
+                
+        })
+    }catch(error){
+
+    }
+
+}
+
+
+export const submitCpp = async (req, res) => {
     const { code, problem } = req.body;
 
     const uniqueFileName = `${uuidv4()}.cpp`;
