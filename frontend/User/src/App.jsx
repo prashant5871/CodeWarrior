@@ -1,12 +1,25 @@
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import Navbar from './componenets/Navbar'
+import HomePage from './componenets/HomePage'
+import LoginPage from './componenets/LoginPage'
+import { useState } from 'react'
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  }
   
   return (
     <>
-      <h1 className="text-3xl font-bold underline text-blue-500">
-        Hello world!
-      </h1>
+      <Navbar isAuthenticated={isAuthenticated} />
+      
+      <Routes>
+        <Route path='/' element={<HomePage/>} />
+        <Route path='/login' element={<LoginPage  onLogin={handleLogin}/>}/>
+      </Routes>
     </>
   )
 }
