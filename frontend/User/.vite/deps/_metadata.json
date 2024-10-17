@@ -1,8 +1,52 @@
 {
+<<<<<<< HEAD
   "hash": "4b765a38",
   "configHash": "a92506d2",
   "lockfileHash": "e3b0c442",
   "browserHash": "a943bca6",
   "optimized": {},
   "chunks": {}
+=======
+  "hash": "1af3cbbe",
+  "configHash": "a92506d2",
+  "lockfileHash": "961b1c61",
+  "browserHash": "178d7d0e",
+  "optimized": {
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "b816251e",
+      "needsInterop": false
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "44529bb5",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "1d4a262a",
+      "needsInterop": true
+    },
+    "@heroicons/react/outline": {
+      "src": "../../node_modules/@heroicons/react/outline/index.js",
+      "file": "@heroicons_react_outline.js",
+      "fileHash": "4287e683",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-HCGKX5ED": {
+      "file": "chunk-HCGKX5ED.js"
+    },
+    "chunk-WNPTCGAH": {
+      "file": "chunk-WNPTCGAH.js"
+    },
+    "chunk-5WRI5ZAA": {
+      "file": "chunk-5WRI5ZAA.js"
+    }
+  }
+>>>>>>> prashant_dev
 }

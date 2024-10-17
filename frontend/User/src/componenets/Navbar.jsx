@@ -1,10 +1,16 @@
 import React, { useEffect } from 'react';
 import { NavLink } from "react-router-dom";
 import Logo from './Logo';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAuthUser } from '../redux/userSlice';
 
-const NavBar = ({isAuthenticated}) => {
-
+const NavBar = ({isAuthenticated,setIsAuthenticated}) => {
+    const {authUser} = useSelector(state => state.user);
+    const dispatch = useDispatch();
     const handleLogOut = () => {
+        setIsAuthenticated(false);
+        localStorage.removeItem("user");
+        dispatch(setAuthUser(null));
         console.log("Logout button clicked...");
     }
     
@@ -50,9 +56,9 @@ const NavBar = ({isAuthenticated}) => {
             { isAuthenticated && 
             <button
                 className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-2 px-4 rounded-md shadow-lg transition-transform transform "
-                onSubmit={handleLogOut}
+                onClick={handleLogOut}
             >
-                LogOut
+                Log out
             </button>
             }
 

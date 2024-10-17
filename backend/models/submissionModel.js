@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-// Define the Submission schema
+
 const submissionModel = new mongoose.Schema({
     language: {
         type: String,
