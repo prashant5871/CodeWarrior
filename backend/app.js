@@ -15,32 +15,24 @@ const app = express();
 dotenv.config();
 app.use(cookieParser());
 
+/*
 app.use(cors({
   origin: 'http://localhost:3001',  // Frontend address
   credentials: true                 // Allow sending cookies in requests
 }));
-app.use(express.json());
 
+*/
 
-/*
+/* */
 const allowedOrigins = ['http://localhost:5173', 'http://localhost:3001'];
 
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin, like mobile apps or curl requests
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: allowedOrigins,
   credentials: true, // Allow cookies and credentials to be included
 }));
-*/
 
 
+app.use(express.json());
 const port = process.env.PORT || 3000;
 
 app.get("/",(req,res)=>{

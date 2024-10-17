@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import SignUpPage from './componenets/SignUpPage'
 import {Toaster} from "react-hot-toast"
 import ProblemPage from './pages/ProblemPage'
+import Problem from './componenets/Problem'
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/register' element={ <SignUpPage /> } />
         <Route path="/problems" element={ <ProblemPage /> } />
+        <Route path="/problem/:problemId" element={ <Problem /> } />
       </Routes>
     </>
   )

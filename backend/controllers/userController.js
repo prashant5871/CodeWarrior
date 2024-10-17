@@ -102,12 +102,7 @@ export const login = async (req, res) => {
 
     console.log(token);
 
-    res.cookie('token', token, {
-        maxAge: 24 * 60 * 60 * 1000,  // 1 day expiration
-        httpOnly: true,               // Prevent access via JavaScript (good security practice)
-        sameSite: 'lax',              // Allow cross-origin cookies (change to 'none' if stricter settings are needed)
-        secure: false                 // 'false' in local development, 'true' when using HTTPS
-    })
+    res
         .status(200)
         .json(
             {
@@ -120,7 +115,7 @@ export const login = async (req, res) => {
 }
 
 
-export const getAllUsers = async (req,res) => {
+export const getAllUsers = async (req, res) => {
     try {
         const users = await User.find();
         return res.status(200).json(users);
@@ -128,5 +123,5 @@ export const getAllUsers = async (req,res) => {
         console.log(error);
     }
 
-    res.status(400).json({message : "something went wrong"});
+    res.status(400).json({ message: "something went wrong" });
 }

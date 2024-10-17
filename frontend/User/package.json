@@ -11,9 +11,18 @@
     "start": "npm run dev"
   },
   "dependencies": {
+    "@codemirror/basic-setup": "^0.20.0",
+    "@codemirror/lang-cpp": "^6.0.2",
+    "@codemirror/lang-java": "^6.0.1",
+    "@codemirror/lang-python": "^6.1.6",
+    "@codemirror/state": "^6.4.1",
+    "@codemirror/view": "^6.34.1",
     "@heroicons/react": "^1.0.6",
     "@reduxjs/toolkit": "^2.2.8",
+    "@uiw/react-codemirror": "^4.23.5",
+    "codemirror": "^5.65.18",
     "react": "^18.3.1",
+    "react-codemirror2": "^8.0.0",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
     "react-redux": "^9.1.2",
