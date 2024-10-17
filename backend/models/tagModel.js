@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-// Define the Tag schema
 const tagModel = new mongoose.Schema({
     name: {
         type: String,

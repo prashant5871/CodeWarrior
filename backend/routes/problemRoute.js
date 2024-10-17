@@ -1,8 +1,9 @@
 import  express  from "express";
-import { getProblems } from "../controllers/problemController.js";
+import { deleteProblemById, getProblems } from "../controllers/problemController.js";
 
 const router = express.Router();
 
 router.get("/",getProblems); 
+router.delete("/:id",deleteProblemById);
 
 export default router;

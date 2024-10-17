@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProgrammingGirl from "../assets/coding_girl.webp"
 import Footer from './Footer';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAuthUser } from '../redux/userSlice';
 
 const HomePage = () => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const { authUser } = useSelector(state => state.user);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (localStorage.getItem("user")) {
+            setIsAuthenticated(true);
+            const user = JSON.parse(localStorage.getItem("user"));
+            dispatch(setAuthUser(user));
+        }
+    },[])
+
     return (
         <div className="bg-gray-100 min-h-screen">
 
@@ -11,8 +26,14 @@ const HomePage = () => {
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
                     <div className="md:w-1/2 text-center md:text-left">
                         <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-4">Level up your coding skills</h1>
+
                         <p className="text-lg md:text-xl mb-6">Join CodeWarrior and solve challenging problems, compete in contests, and grow as a developer.</p>
-                        <Link to="/register" className="bg-white text-blue-500 font-semibold py-2 px-6 rounded-full shadow-md hover:bg-blue-400 hover:text-white transition-colors duration-300">Get Started</Link>
+                        {!authUser &&
+                            <Link to="/register" className="bg-white text-blue-500 font-semibold py-2 px-6 rounded-full shadow-md hover:bg-blue-400 hover:text-white transition-colors duration-300">Get Started</Link>
+                        }
+                        {authUser &&
+                            <Link to="/problems" className="bg-white text-blue-500 font-semibold py-2 px-6 rounded-full shadow-md hover:bg-blue-400 hover:text-white transition-colors duration-300">Solve Problems</Link>
+                        }
                     </div>
                     <div className="md:w-1/2 mt-10 md:mt-0">
 

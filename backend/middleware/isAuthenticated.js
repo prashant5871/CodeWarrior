@@ -3,11 +3,14 @@ import jwt from "jsonwebtoken";
 ///This is the middleware which will call on each and everey request whenever authentication is required
 export const isAuthenticated = (req,res,next) => {
     try{
-        const token = req.cookies.token;
+        // console.log(req.cookies);
+        // const token = req.cookies.token;
+        const token = req.headers.authorization?.split(' ')[1];
+        console.log("token = ", token);
         if(!token)
         {
             return res.status(401).json({
-                messege : "Please login first",
+                message : "Please login first",
                 success : false
             })
         }
@@ -18,7 +21,7 @@ export const isAuthenticated = (req,res,next) => {
         if(!decode)
         {
             return res.status(401).json({
-                messege : "Please login",
+                message : "Please login",
                 success : false
             })
         }
@@ -30,7 +33,7 @@ export const isAuthenticated = (req,res,next) => {
     {
         console.log(error);
         res.status(500).json({
-            messege :"Internal server error",
+            message :"Internal server error",
             success : false
         })
     }
