@@ -26,3 +26,22 @@ export const addProblemToTag = async (tagId,problem) => {
     return null;
 }
 
+
+export const getTagById = async (req,res) =>
+{
+    const tagId = req.params.tagId;
+    try{
+        let tag = await Tag.findOne({_id : tagId});
+        if(tag)
+        {
+            return tag;
+        }
+    }catch(e){
+        console.log(e);
+    }
+
+    res.status(400).json({
+        message : "tag not found",
+        success:false
+    })
+}

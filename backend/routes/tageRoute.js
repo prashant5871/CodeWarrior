@@ -1,5 +1,6 @@
 import  express from "express";
 import Tag from "../models/tagModel.js";
+import { getTagById } from "../controllers/tagController.js";
 
 
 const router = express.Router();
@@ -13,5 +14,7 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: 'Error fetching tags', error: error.message });
   }
 });
+
+router.get("/:tagId",getTagById);
 
 export default router;

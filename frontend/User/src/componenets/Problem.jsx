@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CodeMirror from '@uiw/react-codemirror';
 import { oneDark } from '@codemirror/theme-one-dark';
@@ -6,13 +6,57 @@ import { cpp } from '@codemirror/lang-cpp';
 import { java } from '@codemirror/lang-java';
 import { python } from '@codemirror/lang-python';
 import { indentOnInput } from '@codemirror/language';
+// import useFetchProblems from '../hooks/useFetchProblems';
+// import useFetchTags from '../hooks/useFetchProblems';
 
 const Problem = () => {
+
+  useEffect(() => {
+
+    
+    const fetchTags = async () => {
+      try {
+        
+        const response = await axios.get('http://localhost:5000/api/tags'); // Adjust the URL to match your API endpoint
+        setTags(response.data); // Assuming your backend returns the tags in `data`
+      } catch (err) {
+        
+      } finally {
+        
+      }
+    };
+
+    fetchTags();
+
+    const fetchProblems = async () => {
+      try {
+        
+        const response = await fetch('http://localhost:5000/api/problems'); 
+        
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+        
+        const data = await response.json(); // Convert response to JSON
+        setProblems(data); // Assuming the response contains an array of tags
+      } catch (err) {
+        
+      } finally {
+        
+      }
+    };
+
+    fetchProblems();
+
+  })
+
   const { problemId } = useParams(); // Get problem ID from URL
   const [code, setCode] = useState(`#include<bits/stdc++.h>\n\nusing namespace std;\n\nint main()\n{\n  cout << "Hello world" << endl;\n}\n`);
   const [language, setLanguage] = useState("cpp");
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
+  const [problems, setProblems] = useState([]);
+  const [tags, setTags] = useState([]);
 
   // Define a function to return the correct class for difficulty level
   const getDifficultyClass = (level) => {
@@ -28,19 +72,11 @@ const Problem = () => {
     }
   };
 
-  const problems = {
-    1: {
-      title: "Two Sum",
-      description: "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
-      difficultyLevel: "easy", // New attribute for difficulty level
-      constraints: "1 <= nums.length <= 10^5\n1 <= nums[i] <= 10^9",
-      examples: `Example:\nInput: nums = [2,7,11,15], target = 9\nOutput: [0,1]`,
-      tags: ["array", "hashmap", "two pointers"], // New attribute for tags
-    },
-    // Add more problems here with difficultyLevel and tags
-  };
 
-  const problem = problems[problemId] || {};
+
+  const problem = problems?.find(problem => problem._id === problemId) || {};
+  const problemTags = tags.some(tag => problem?.tags?.find(ptag => ptag._id === tag._id)) || [];
+
 
   const getLanguage = (lang) => {
     switch (lang) {
@@ -84,7 +120,7 @@ const Problem = () => {
           <div className="mt-4">
             <h3 className="font-bold mb-2">Tags:</h3>
             <div className="flex flex-wrap">
-              {problem.tags.map((tag, index) => (
+              {problemTags?.map((tag, index) => (
                 <span key={index} className="bg-blue-100 text-blue-700 px-2 py-1 m-1 rounded-full text-sm">
                   {tag}
                 </span>
