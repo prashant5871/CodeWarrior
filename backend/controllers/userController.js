@@ -3,11 +3,11 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
-    const { name, email, username, password, confirmPassword } = req.body;
+    const { firstName,lastName, email, username, password, confirmPassword } = req.body;
 
     // console.log(name,email,username,password,confirmPassword);
 
-    if (!name || !email || !username || !password || !confirmPassword) {
+    if (!firstName || !lastName || !email || !username || !password || !confirmPassword) {
         return res.status(400).json({ message: "Please provide full information", success: false });
     }
 
@@ -30,7 +30,8 @@ export const register = async (req, res) => {
 
     try {
         user = await User.create({
-            name,
+            firstName,
+            lastName,
             email,
             username,
             password: hashPassword

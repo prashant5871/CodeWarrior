@@ -14,7 +14,8 @@ const SignUpPage = () => {
     const dispatch = useDispatch();
 
     const initialState = {
-        name: '',
+        firstName: '',
+        lastName:'',
         username: '',
         email: '',
         password: '',
@@ -67,18 +68,32 @@ const SignUpPage = () => {
                 <h2 className="text-3xl font-bold text-center mb-6">Create an Account</h2>
                 <form method="POST" onSubmit={submitHandler} className="space-y-4">
                     <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+                        <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
                         <input
                             type="text"
-                            id="name"
-                            name="name"
+                            id="firstName"
+                            name="firstName"
                             onChange={handleChange}
-                            value={values.name}
+                            value={values.firstName}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-                            placeholder="Enter your name"
+                            placeholder="Enter your first name"
                             required
                         />
-                        {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+                        {/* {errors.firstName && <p className="text-red-500 text-sm">{errors.name}</p>} */}
+                    </div>
+                    <div>
+                        <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name</label>
+                        <input
+                            type="text"
+                            id="lastName"
+                            name="lastName"
+                            onChange={handleChange}
+                            value={values.lastName}
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                            placeholder="Enter your last name"
+                            required
+                        />
+                        {/* {errors.lastName && <p className="text-red-500 text-sm">{errors.name}</p>} */}
                     </div>
                     <div>
                         <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>

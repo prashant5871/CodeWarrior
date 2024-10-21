@@ -3,9 +3,6 @@ import { useReducer } from 'react';
 // Validation rules using regular expressions
 const validate = (name, value) => {
   switch (name) {
-    case 'name':
-      // Full name validation (one required space between first and last name)
-      return /^[A-Za-z]+ [A-Za-z]+$/.test(value) ? '' : 'Name must contain one space and only letters';
     case 'username':
       return /^[a-zA-Z0-9_]{4,}$/.test(value) ? '' : 'Username must be at least 4 characters long and contain only letters, numbers, or underscores';
     case 'email':

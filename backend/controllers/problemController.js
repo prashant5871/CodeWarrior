@@ -4,9 +4,9 @@ import { CreateTestCase } from "./testCaseController.js";
 
 export const addProblem = async (req, res) => {
 
-    const { title, description, constraints, difficultyLevel, tags } = req.body;
+    const { title, description, constraints, difficultyLevel, tags, example } = req.body;
 
-    if (!title || !description || !constraints || !difficultyLevel) {
+    if (!title || !description || !constraints || !difficultyLevel || !example) {
         return res.status(400).json({
             message: "Please provide valid information",
             success: false
@@ -25,7 +25,8 @@ export const addProblem = async (req, res) => {
             description,
             constraints,
             difficultyLevel,
-            tags: validTags
+            tags: validTags,
+            example
         })
     } catch (error) {
         console.log(error);
@@ -147,7 +148,10 @@ export const addTestCase = async (req, res) => {
 export const getProblems = async (req, res) => {
     let problems;
     try {
-        problems = await Problem.find();
+        problems = await Problem.find()
+            .populate('tags')
+            .populate('testCases');
+
         // console.log(problems);
     } catch (error) {
         // console.log(error);
@@ -160,6 +164,6 @@ export const getProblems = async (req, res) => {
     res.status(200).json(problems);
 }
 
-export const deleteProblemById = async (req,res) => {
-    res.status(200).json({message : "problem deleted succesfully"});
+export const deleteProblemById = async (req, res) => {
+    res.status(200).json({ message: "problem deleted succesfully" });
 }

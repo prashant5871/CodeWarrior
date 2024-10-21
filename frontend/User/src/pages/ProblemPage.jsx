@@ -9,6 +9,7 @@ const ProblemPage = () => {
   });
 
   const { problems, loading, error } = useFetchProblems(); 
+  console.log(problems);
 
   
   const matchesSearchTerm = (problem, searchTerm) => {

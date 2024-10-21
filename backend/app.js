@@ -4,6 +4,7 @@ import connectDB from "./configuration/database.js";
 import userRouter from "./routes/userRoute.js";
 import adminRouter from "./routes/adminRoute.js";
 import problemRouter from "./routes/problemRoute.js";
+import submissionRouter from "./routes/submissionRouter.js";
 import tagRouter from "./routes/tageRoute.js";
 import codeRouter from "./routes/codeRoute.js";
 import cookieParser from "cookie-parser";
@@ -45,6 +46,7 @@ app.use("/api/admin/",adminRouter); //Admin routes will be handled here
 app.use("/api/problems",problemRouter);
 app.use("/api/code",isAuthenticated,codeRouter);
 app.use("/api/tags",tagRouter);
+app.use("/api/submit",submissionRouter);
 
 app.listen(port,()=> {
     connectDB();

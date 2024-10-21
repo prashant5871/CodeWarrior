@@ -14,6 +14,10 @@ const problemModel = new mongoose.Schema({
         type: String, 
         required: true
     },
+    example : {
+        type:String,
+        required : true
+    },
     difficultyLevel: {
         type: String,
         enum: ['easy', 'medium', 'hard'], 

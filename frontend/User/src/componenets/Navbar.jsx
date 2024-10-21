@@ -7,6 +7,8 @@ import { setAuthUser } from '../redux/userSlice';
 const NavBar = ({isAuthenticated,setIsAuthenticated}) => {
     const {authUser} = useSelector(state => state.user);
     const dispatch = useDispatch();
+
+    
     const handleLogOut = () => {
         setIsAuthenticated(false);
         localStorage.removeItem("user");
@@ -25,12 +27,6 @@ const NavBar = ({isAuthenticated,setIsAuthenticated}) => {
                     className={({ isActive }) => isActive ? "text-purple-300 font-bold" : "font-bold hover:text-gray-300"}
                 >
                     Problems
-                </NavLink>
-                <NavLink
-                    to="/contest"
-                    className={({ isActive }) => isActive ? "text-purple-300 font-bold" : "font-bold hover:text-gray-300"}
-                >
-                    Contest
                 </NavLink>
                 <NavLink
                     to="/profile"
