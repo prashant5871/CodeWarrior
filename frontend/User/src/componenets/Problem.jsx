@@ -28,6 +28,8 @@ const Problem = () => {
 
   const [inputError,setInputError] = useState(false);
 
+  const [accuracy,setAccuracy] = useState(0);
+
   useEffect(() => {
 
     if(localStorage.getItem("user"))
@@ -58,11 +60,31 @@ const Problem = () => {
       }
     };
 
-    fetchTags();
-    fetchProblems();
-  }, []);
+    fetchTags().then(() => {
+      fetchProblems().then(() => {
+        
+      })
+
+    });
+
+    
+  });
 
   const problem = problems.find(problem => problem._id === problemId) || {};
+
+  const calculateAccuracy = () => {
+    const problem = problems.find(problem => problem._id === problemId) || {};
+
+        console.log("before total -> problem = ",problem);
+        const total = problem?.submissions?.length || 0;
+        const ac = (problem?.submissions?.filter(submission => submission?.result === "Success"))?.length || 0;
+        console.log("total = ",total ," and ac = ",ac);
+        const acc = (ac * 100) / total || 0;
+        // setAccuracy(Math.ceil(acc));
+        console.log(Math.ceil(acc));
+
+        return Math.ceil(acc);
+  }
 
   const getDifficultyClass = (level) => {
     switch (level) {
@@ -224,7 +246,16 @@ const Problem = () => {
           </div>
         )}
 
-
+<div className="mt-4">
+            <h3 className="font-bold mb-2">Accuracy:
+            {/* <div className="flex flex-wrap"> */}
+                <span className="bg-blue-100 text-blue-700 px-2 py-1 m-1 rounded-md text-sm">
+                  {calculateAccuracy()}%
+                </span>
+                </h3>
+            
+            {/* </div> */}
+          </div>
 
         <Link to={`/mysubmission/${currUser?._id}/${problemId}`}>
           <div className='border rounded-xl bg-green-400 p-2 text-center mt-1 hover:bg-green-500'>Go to my Submissions</div>
@@ -310,7 +341,7 @@ const Problem = () => {
 
         {/* Time Limit Exceeded */}
         {timeLimitExceeded && (
-          <div className="text-yellow-500 mt-2">⏱️ Time Limit Exceeded</div>
+          <div className="text-yellow-200 bg-black mt-2">⏱️ Time Limit Exceeded</div>
         )}
 
         {/* Display Passed Test Cases */}

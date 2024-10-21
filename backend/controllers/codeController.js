@@ -153,6 +153,7 @@ export const submitCpp = async (req, res) => {
                         });
                         result = "Failed";
                     } else if (stdout.trim() !== testCase.expectedOutput.trim()) {
+                        console.log(testCase.expectedOutput.trim(),stdout.trim());
                         wrongTestCases.push({
                             id: testCase._id,
                             input: testCase.input,

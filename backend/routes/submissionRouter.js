@@ -2,6 +2,7 @@ import express from 'express';
 import Submission from '../models/submissionModel.js';
 import fs from 'fs';
 import path from 'path';
+import { getSubmissionByUserId } from '../controllers/submissionController.js';
 
 const router = express.Router();
 
@@ -26,4 +27,6 @@ router.get('/submissions/:userId/:problemId', async (req, res) => {
     }
 });
 
+
+router.get('/submissions/:userId',getSubmissionByUserId);
 export default router;

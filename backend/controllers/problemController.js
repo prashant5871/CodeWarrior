@@ -150,7 +150,9 @@ export const getProblems = async (req, res) => {
     try {
         problems = await Problem.find()
             .populate('tags')
-            .populate('testCases');
+            .populate('testCases')
+            .populate('submissions')
+            ;
 
         // console.log(problems);
     } catch (error) {
